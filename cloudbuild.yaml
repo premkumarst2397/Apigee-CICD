@@ -1,0 +1,15 @@
+steps:
+- name: 'gcr.io/cloud-builders/mvn'
+  entrypoint: 'bash'
+  args: ['-c', 'mvn install -Ptest -Dusername=$$USERNAME -Dpassword=$$PASSWORD']
+  dir: 'HelloWorld'
+  secretEnv: ['USERNAME', 'PASSWORD']
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/847644853023/secrets/apigee-password/versions/1
+    env: 'PASSWORD'
+  - versionName: projects/847644853023/secrets/apigee-username/versions/1
+    env: 'USERNAME'
